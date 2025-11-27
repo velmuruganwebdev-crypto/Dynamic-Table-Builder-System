@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <a href="http://127.0.0.1:8000/showtables/">Back to table list</a>  <a href="/">HOME</a>
+    <hr>
+    <table>
+        <thead>
+            <tr>
+                <th>Label</th>
+                <th>Data Type</th>
+                <th>Mandatory</th>
+                <th>Options</th>                
+            </tr>
+        </thead>
+        <tbody>
+            {% for i,j,k in fields %}
+            <tr>
+                <td>
+                    <input type="text" name="{{i}}", value="{{i}}" readonly> 
+                </td>
+                <td>
+                    <select name="datatype" value="{{j}}">
+                        <option value="{{j}}">{{j}}</option>                
+                        <option value="{{j}}">Text</option>
+                        <option value="{{j}}">Large Text</option>
+                        <option value="{{j}}">Number</option>
+                        <option value="{{j}}">Large Number</option>
+                        <option value="{{j}}">Decimal</option>
+                        <option value="{{j}}">Float</option>
+                        <option value="{{j}}">Date</option>
+                        <option value="{{j}}">Time</option>
+                        <option value="{{j}}">DateTime</option>
+                        <option value="{{j}}">Price</option>
+                        <option value="{{j}}">Boolean</option>
+                        <option value="{{j}}">Link</option>
+                    </select>
+                </td>
+                <td>
+                    <input type="text" class="mandatory", value="{{k}}">
+                    <input type="hidden" name="Mandatory" class="mandatory_value" value="{{k}}">
+                </td>
+                <td>
+                    <input type="text" name="options">
+                </td>
+            </tr>
+            {% endfor %}
+             
+    <!-- <form action="" method="post">
+        {% csrf_token %}
+        <label>Table Name</label>
+        <input type="text" name="table_name"> 
+        <div id="rowsContainer">
+            <div class="rowItem">
+
+                
+    
+            
+                
+                <br><br>
+            </div>
+        </div>
+    
+        <button type="button" onclick="addRow()">Add Row</button>
+        <button type="submit">Create Table</button>
+    </form> -->
+ 
+        </tbody>
+    </table>
+       
+</body>
+</html>

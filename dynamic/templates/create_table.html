@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Rows</title>
+</head>
+<body>
+    <a href="http://127.0.0.1:8000/showtables/">Table List</a>
+    <hr>
+
+<form action="" method="post">
+    {% csrf_token %}
+    <label>Table Name</label>
+    <input type="text" name="table_name"> 
+    <br><br>
+    <div id="rowsContainer">
+        <div class="rowItem">
+
+            <label>Label</label>
+            <input type="text" name="Label">
+
+            <label>Data Type</label>
+            <select name="datatype">                
+                <option value="VARCHAR(255)">Text</option>
+                <option value="TEXT">Large Text</option>
+                <option value="INT">Number</option>
+                <option value="BIGINT">Large Number</option>
+                <option value="NUMERIC(50,2)">Decimal</option>
+                <option value="DOUBLE PRECISION">Float</option>
+                <option value="DATE">Date</option>
+                <option value="TIME">Time</option>
+                <option value="TIMESTAMP">DateTime</option>
+                <option value="MONEY">Price</option>
+                <option value="BOOLEAN">Boolean</option>
+                <option value="CONSTRAINT fk_">Link</option>
+            </select>
+            <label>Mandatory</label>
+            <input type="checkbox" class="mandatory">
+            <input type="hidden" name="Mandatory" class="mandatory_value" value="NULL">
+
+            <label>Options</label>
+            <input type="text" name="options">
+            <button type="button" onclick="removeRow(this)">Remove</button>
+            <br><br>
+        </div>
+    </div>
+
+    <button type="button" onclick="addRow()">Add Row</button>
+    <button type="submit">Create Table</button>
+</form>
+
+
+<script>
+
+    function updateMandatory() {
+        document.querySelectorAll(".rowItem").forEach(row => {
+            let cb = row.querySelector(".mandatory");
+            let hidden = row.querySelector(".mandatory_value");
+
+            cb.onchange = () => {
+                hidden.value = cb.checked ? "NOT NULL" : "NULL";
+            };
+        });
+    }
+
+    updateMandatory();
+
+
+    function addRow() {
+        let container = document.getElementById("rowsContainer");
+        let firstRow = document.querySelector(".rowItem");
+
+        let newRow = firstRow.cloneNode(true);
+
+        newRow.querySelectorAll("input").forEach(i => {
+            if (i.type === "text") i.value = "";
+            if (i.type === "checkbox") i.checked = false;
+            if (i.classList.contains("mandatory_value")) i.value = "NULL";
+        });
+
+        container.appendChild(newRow);
+
+        updateMandatory();
+    }
+
+
+    function removeRow(btn) {
+        let count = document.querySelectorAll(".rowItem").length;
+        if (count > 1) {
+            btn.parentElement.remove();
+        } else {
+            alert("At least one row required");
+        }
+    }
+
+</script>
+
+</body>
+</html>
